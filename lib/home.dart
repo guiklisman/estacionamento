@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'shared/widgets/default_button_widget.dart';
+import 'shared/widgets/parking_available_widget.dart';
+import 'shared/widgets/parking_icon_widget.dart';
+import 'shared/widgets/space_widget.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -23,8 +28,17 @@ class _HomePageState extends State<HomePage> {
               height: 150,
               width: 400,
               decoration: BoxDecoration(
-                color: Colors.green[500],
                 borderRadius: BorderRadius.circular(10.0),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.green[300]!,
+                    Colors.green[500]!,
+                    Colors.green[700]!,
+                  ],
+                  stops: const [0.2, 0.5, 0.8],
+                ),
               ),
               child: Stack(
                 children: [
@@ -52,6 +66,7 @@ class _HomePageState extends State<HomePage> {
                             'Ganho hoje: R\$ 520,00',
                             style: TextStyle(
                               fontSize: 25,
+                              color: Colors.white,
                             ),
                           ),
                         if (showValues)
@@ -59,6 +74,7 @@ class _HomePageState extends State<HomePage> {
                             'Clientes hoje: 27',
                             style: TextStyle(
                               fontSize: 25,
+                              color: Colors.white,
                             ),
                           ),
                       ],
@@ -74,111 +90,63 @@ class _HomePageState extends State<HomePage> {
               'Minhas Vagas:',
               style: TextStyle(fontSize: 22),
             ),
-            const SizedBox(
+            const SpaceWidget(
               height: 25,
             ),
             SizedBox(
               height: 250,
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5, // Define o número de colunas
-                  crossAxisSpacing:
-                      8.0, // Espaçamento horizontal entre os itens
-                  mainAxisSpacing: 8.0, // Espaçamento vertical entre os itens
+                  crossAxisCount: 5,
+                  crossAxisSpacing: 8.0,
+                  mainAxisSpacing: 8.0,
                 ),
                 itemCount: 11,
                 itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.teal,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Vaga $index',
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
+                  return ParkingIconWidget(
+                    vagaPreenchida: false,
+                    numeroVaga: index,
                   );
                 },
               ),
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  height: 50,
-                  width: 170,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey, // Cor da borda cinza
-                      width: 1.0, // Largura da borda
-                    ),
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Ajuste o raio conforme necessário
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Vagas Disponíveis: 3',
-                    ),
-                  ),
+                ParkingAvailableWidget(
+                  title: 'Vagas Disponíveis: ',
+                  value: '5',
                 ),
-                Container(
-                  height: 50,
-                  width: 170,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey, // Cor da borda cinza
-                      width: 1.0, // Largura da borda
-                    ),
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Ajuste o raio conforme necessário
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Vagas Ocupadas: 13',
-                    ),
-                  ),
+                ParkingAvailableWidget(
+                  title: 'Vagas Ocupadas: ',
+                  value: '7',
                 ),
               ],
             ),
-            const SizedBox(
+            const SpaceWidget(
               height: 50,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: TextButton.icon(
-                    onPressed: () => (),
-                    icon: const Icon(Icons.add),
-                    label: const Text('Entrar Veículo'),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color.fromARGB(
-                          255,
-                          76,
-                          135,
-                          175,
-                        ),
-                      ),
-                    ),
+                  child: DefaultButtonWidget(
+                    title: 'Entrar Veículo',
+                    icon: Icons.add,
+                    colorBackground: const Color.fromARGB(255, 76, 135, 175),
+                    onTap: () => null,
                   ),
                 ),
-                const SizedBox(
+                const SpaceWidget(
                   width: 15,
                 ),
                 Expanded(
-                  child: TextButton.icon(
-                    onPressed: () => (),
-                    icon: const Icon(Icons.add),
-                    label: const Text('Sair Veículo'),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color.fromARGB(255, 226, 98, 98),
-                      ),
-                    ),
+                  child: DefaultButtonWidget(
+                    title: 'Sair Veículo',
+                    icon: Icons.highlight_remove,
+                    colorBackground: const Color.fromARGB(255, 226, 98, 98),
+                    onTap: () => null,
                   ),
                 ),
               ],
