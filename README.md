@@ -18,8 +18,8 @@ Este projeto de teste demonstra a criação de um aplicativo Flutter funcional p
 
 **Como executar:**
 
-1. Clone o repositório: `git clone https://github.com/bard-pt/estacionamento-flutter.git`
-2. Acesse a pasta do projeto: `cd estacionamento-flutter`
+1. Clone o repositório: `git clone https://github.com/guiklisman/estacionamento.git`
+2. Acesse a pasta do projeto: `cd estacionamento`
 3. Execute os comandos:
 
 flutter clean
