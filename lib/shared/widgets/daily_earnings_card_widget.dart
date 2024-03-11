@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class DailyEarningsCardWidget extends StatefulWidget {
-  final double totalGainToday;
+  final String totalGainToday;
   final int totalCustomersToday;
+  final void Function() onTap;
   const DailyEarningsCardWidget(
       {super.key,
       required this.totalGainToday,
-      required this.totalCustomersToday});
+      required this.totalCustomersToday,
+      required this.onTap});
 
   @override
   State<DailyEarningsCardWidget> createState() =>
@@ -14,7 +16,7 @@ class DailyEarningsCardWidget extends StatefulWidget {
 }
 
 class _DailyEarningsCardWidgetState extends State<DailyEarningsCardWidget> {
-  bool showValues = true;
+  bool mostraValores = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +29,9 @@ class _DailyEarningsCardWidgetState extends State<DailyEarningsCardWidget> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.green[300]!,
-            Colors.green[500]!,
-            Colors.green[700]!,
+            Colors.blue[300]!,
+            Colors.blue[500]!,
+            Colors.blue[700]!,
           ],
           stops: const [0.2, 0.5, 0.8],
         ),
@@ -41,13 +43,13 @@ class _DailyEarningsCardWidgetState extends State<DailyEarningsCardWidget> {
             right: 8.0,
             child: IconButton(
               icon: Icon(
-                showValues ? Icons.visibility : Icons.visibility_off,
+                mostraValores ? Icons.visibility : Icons.visibility_off,
                 color: Colors.white,
               ),
               onPressed: () {
                 setState(
                   () {
-                    showValues = !showValues;
+                    mostraValores = !mostraValores;
                   },
                 );
               },
@@ -57,22 +59,32 @@ class _DailyEarningsCardWidgetState extends State<DailyEarningsCardWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (showValues)
-                  Text(
-                    'Ganho hoje: R\$ ${widget.totalGainToday}',
-                    style: const TextStyle(
-                      fontSize: 25,
+                Text(
+                  'Ganho hoje: ${mostraValores ? widget.totalGainToday : '******'}',
+                  style: const TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  'Clientes hoje: ${mostraValores ? widget.totalCustomersToday : '**'}',
+                  style: const TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    widget.onTap();
+                  },
+                  child: const Text(
+                    'ver histórico',
+                    style: TextStyle(
+                      fontSize: 18,
                       color: Colors.white,
                     ),
                   ),
-                if (showValues)
-                  Text(
-                    'Clientes hoje: ${widget.totalCustomersToday}',
-                    style: const TextStyle(
-                      fontSize: 25,
-                      color: Colors.white,
-                    ),
-                  ),
+                ),
               ],
             ),
           ),

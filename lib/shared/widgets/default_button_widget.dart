@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../models/vaga_model.dart';
+
 class DefaultButtonWidget extends StatefulWidget {
   final IconData icon;
   final String title;
   final Color colorBackground;
-  final Function onTap;
+  final List<VagaModel> vagas;
+  final Future<void> Function() onTap;
 
   const DefaultButtonWidget({
     super.key,
     required this.icon,
     required this.title,
     required this.colorBackground,
+    required this.vagas,
     required this.onTap,
   });
 
@@ -29,7 +33,9 @@ class _DefaultButtonWidgetState extends State<DefaultButtonWidget> {
           widget.colorBackground,
         ),
       ),
-      onPressed: widget.onTap(),
+      onPressed: () async {
+        await widget.onTap();
+      },
     );
   }
 }

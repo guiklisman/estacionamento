@@ -1,7 +1,8 @@
 import 'package:collection/collection.dart';
+import 'package:intl/intl.dart';
 
 class HistoricoDiarioModel {
-  String? totalGanhoHoje;
+  double? totalGanhoHoje;
   int? totalClientesHoje;
 
   HistoricoDiarioModel({this.totalGanhoHoje, this.totalClientesHoje});
@@ -13,7 +14,7 @@ class HistoricoDiarioModel {
 
   factory HistoricoDiarioModel.fromJson(Map<String, dynamic> json) {
     return HistoricoDiarioModel(
-      totalGanhoHoje: json['totalGanhoHoje'] as String?,
+      totalGanhoHoje: json['totalGanhoHoje'] as double?,
       totalClientesHoje: json['totalClientesHoje'] as int?,
     );
   }
@@ -24,7 +25,7 @@ class HistoricoDiarioModel {
       };
 
   HistoricoDiarioModel copyWith({
-    String? totalGanhoHoje,
+    double? totalGanhoHoje,
     int? totalClientesHoje,
   }) {
     return HistoricoDiarioModel(
@@ -43,4 +44,14 @@ class HistoricoDiarioModel {
 
   @override
   int get hashCode => totalGanhoHoje.hashCode ^ totalClientesHoje.hashCode;
+
+  String totalGanhoHojeReais() {
+    if (totalGanhoHoje != null) {
+      final formattedValue =
+          NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$')
+              .format(totalGanhoHoje!);
+      return formattedValue;
+    }
+    return 'Sem Dado';
+  }
 }
