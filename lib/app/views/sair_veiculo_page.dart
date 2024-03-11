@@ -1,9 +1,9 @@
 import 'package:estacionamento/shared/utils/formatters.dart';
 import 'package:flutter/material.dart';
 
-import '../../shared/models/vaga_model.dart';
-import '../../shared/widgets/space_widget.dart';
+import '../../shared/widgets/espaco_widget.dart';
 import '../controllers/controller.dart';
+import '../models/vaga_model.dart';
 
 class SairVeiculoPage extends StatefulWidget {
   final List<VagaModel> vagas;
@@ -89,12 +89,12 @@ class _SairVeiculoPageState extends State<SairVeiculoPage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Duração Total: ${calcularTempoNoEstabelecimento(vagaSelecionada.horaEntrada!)}',
+                        'Duração Total: ${widget.controller.calcularTempoNoEstabelecimento(vagaSelecionada.horaEntrada!)}',
                         style: const TextStyle(fontSize: 16),
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Valor total: ${Formatters.doubleToReaisString(calcularValorTotal(vagaSelecionada.horaEntrada!))}',
+                        'Valor total: ${Formatters.doubleToReaisString(widget.controller.calcularValorTotal(vagaSelecionada.horaEntrada!))}',
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
@@ -104,7 +104,7 @@ class _SairVeiculoPageState extends State<SairVeiculoPage> {
               ),
             ),
             const Expanded(
-              child: SpaceWidget(),
+              child: EspacoWidget(),
             ),
             Row(
               children: [
@@ -116,46 +116,23 @@ class _SairVeiculoPageState extends State<SairVeiculoPage> {
                 ),
                 TextButton(
                   onPressed: () async {
-                    await widget.controller.sairVeiculo(
-                        vagaSelecionada.nomeVaga!,
-                        calcularValorTotal(vagaSelecionada.horaEntrada!));
-
-                    Navigator.of(context).pop();
+                    await widget.controller
+                        .postSairVeiculo(
+                            vagaSelecionada.nomeVaga!,
+                            widget.controller.calcularValorTotal(
+                                vagaSelecionada.horaEntrada!))
+                        .then((value) => Navigator.of(context).pop());
                   },
                   child: const Text('OK'),
                 ),
               ],
             ),
-            const SpaceWidget(
+            const EspacoWidget(
               height: 25,
             )
           ],
         ),
       ),
     );
-  }
-
-  String calcularTempoNoEstabelecimento(DateTime horaEntrada) {
-    DateTime agora = DateTime.now();
-    Duration diferenca = agora.difference(horaEntrada);
-
-    int horas = diferenca.inHours;
-    int minutos = (diferenca.inMinutes % 60);
-
-    return '$horas horas e $minutos minutos';
-  }
-
-  double calcularValorTotal(DateTime horaEntrada) {
-    DateTime agora = DateTime.now();
-    Duration diferenca = agora.difference(horaEntrada);
-
-    int minutos = diferenca.inMinutes;
-    double valorPorHora = 10.00;
-
-    int horas = ((minutos + 59) / 60).floor();
-
-    double valorTotal = horas * valorPorHora;
-
-    return valorTotal;
   }
 }

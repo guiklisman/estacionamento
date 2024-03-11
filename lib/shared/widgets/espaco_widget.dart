@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SpaceWidget extends StatelessWidget {
+class EspacoWidget extends StatelessWidget {
   final double? height;
   final double? width;
-  const SpaceWidget({super.key, this.height, this.width});
+  const EspacoWidget({super.key, this.height, this.width});
 
   @override
   Widget build(BuildContext context) {

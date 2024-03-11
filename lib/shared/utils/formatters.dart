@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 
 class Formatters {
+  
   static String formatarDateTime(DateTime? dateTime) {
     if (dateTime == null) {
       return 'Sem Dado';

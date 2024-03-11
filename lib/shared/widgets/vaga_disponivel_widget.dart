@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 
-class ParkingAvailableWidget extends StatefulWidget {
+class VagaDisponivelWidget extends StatefulWidget {
   final double? height;
   final double? width;
   final String title;
   final String? value;
-  const ParkingAvailableWidget(
+  final double? sizeTitle;
+  const VagaDisponivelWidget(
       {super.key,
       this.height = 50,
       this.width = 170,
       required this.title,
-      this.value = ''});
+      this.value = '',
+      this.sizeTitle = 15});
 
   @override
-  State<ParkingAvailableWidget> createState() => _ParkingAvailableWidgetState();
+  State<VagaDisponivelWidget> createState() => _VagaDisponivelWidgetState();
 }
 
-class _ParkingAvailableWidgetState extends State<ParkingAvailableWidget> {
+class _VagaDisponivelWidgetState extends State<VagaDisponivelWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,6 +34,7 @@ class _ParkingAvailableWidgetState extends State<ParkingAvailableWidget> {
       child: Center(
         child: Text(
           widget.title + widget.value!,
+          style: TextStyle(fontSize: widget.sizeTitle),
         ),
       ),
     );

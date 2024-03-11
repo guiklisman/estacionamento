@@ -1,8 +1,8 @@
-import 'package:estacionamento/shared/models/vaga_model.dart';
+import 'package:estacionamento/app/models/vaga_model.dart';
 import 'package:estacionamento/shared/utils/formatters.dart';
 import 'package:flutter/material.dart';
 
-import '../../shared/widgets/loading_widget.dart';
+import '../../shared/widgets/carregando_widget.dart';
 import '../controllers/controller.dart';
 
 class HistoricoDiaPage extends StatefulWidget {
@@ -34,7 +34,7 @@ class _HistoricoDiaPageState extends State<HistoricoDiaPage> {
         future: widget.controller.getHistorico(),
         builder: (context, response) {
           if (response.connectionState == ConnectionState.waiting) {
-            return const LoadingWidget();
+            return const CarregandoWidget();
           }
 
           if (response.hasError) {

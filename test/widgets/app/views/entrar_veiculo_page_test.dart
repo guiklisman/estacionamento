@@ -3,7 +3,7 @@ import 'package:estacionamento/app/controllers/controller.dart';
 import 'package:estacionamento/app/repository/repository.dart';
 import 'package:estacionamento/app/views/entrar_veiculo_page.dart';
 import 'package:estacionamento/shared/data/data.dart';
-import 'package:estacionamento/shared/models/vaga_model.dart';
+import 'package:estacionamento/app/models/vaga_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -42,8 +42,9 @@ void main() {
 
     // Pressionar OK
     await tester.tap(find.text('OK'));
-    // await Future.delayed(const Duration(seconds: 1));
-    await tester.pumpAndSettle();
+
+    //Espera o delay da requisição
+    await tester.pumpAndSettle(const Duration(seconds: 1));
 
     expect(repository.entrarVeiculo, isA<Function>());
   });

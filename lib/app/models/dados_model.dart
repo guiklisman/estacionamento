@@ -1,5 +1,5 @@
-import 'package:estacionamento/shared/models/historico_diario_model.dart';
-import 'package:estacionamento/shared/models/vaga_model.dart';
+import 'package:estacionamento/app/models/historico_diario_model.dart';
+import 'package:estacionamento/app/models/vaga_model.dart';
 
 class DadosModel {
   HistoricoDiarioModel? historicoDiario;

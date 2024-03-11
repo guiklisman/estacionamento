@@ -1,28 +1,34 @@
 import 'package:flutter/material.dart';
 
-class DailyEarningsCardWidget extends StatefulWidget {
-  final String totalGainToday;
-  final int totalCustomersToday;
+class CardGanhosTotaisWidget extends StatefulWidget {
+  final String totalGanhoHoje;
+  final int totalClientesHoje;
   final void Function() onTap;
-  const DailyEarningsCardWidget(
-      {super.key,
-      required this.totalGainToday,
-      required this.totalCustomersToday,
-      required this.onTap});
+  final double? largura;
+  final double? altura;
+  final double? tamanhoFonte;
+  const CardGanhosTotaisWidget({
+    super.key,
+    required this.totalGanhoHoje,
+    required this.totalClientesHoje,
+    required this.onTap,
+    this.largura = 400,
+    this.altura = 150,
+    this.tamanhoFonte = 25,
+  });
 
   @override
-  State<DailyEarningsCardWidget> createState() =>
-      _DailyEarningsCardWidgetState();
+  State<CardGanhosTotaisWidget> createState() => _CardGanhosTotaisWidgetState();
 }
 
-class _DailyEarningsCardWidgetState extends State<DailyEarningsCardWidget> {
+class _CardGanhosTotaisWidgetState extends State<CardGanhosTotaisWidget> {
   bool mostraValores = true;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
-      width: 400,
+      height: widget.altura,
+      width: widget.largura,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         gradient: LinearGradient(
@@ -60,16 +66,16 @@ class _DailyEarningsCardWidgetState extends State<DailyEarningsCardWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Ganho hoje: ${mostraValores ? widget.totalGainToday : '******'}',
-                  style: const TextStyle(
-                    fontSize: 25,
+                  'Ganho hoje: ${mostraValores ? widget.totalGanhoHoje : '******'}',
+                  style: TextStyle(
+                    fontSize: widget.tamanhoFonte,
                     color: Colors.white,
                   ),
                 ),
                 Text(
-                  'Clientes hoje: ${mostraValores ? widget.totalCustomersToday : '**'}',
-                  style: const TextStyle(
-                    fontSize: 25,
+                  'Clientes hoje: ${mostraValores ? widget.totalClientesHoje : '**'}',
+                  style: TextStyle(
+                    fontSize: widget.tamanhoFonte,
                     color: Colors.white,
                   ),
                 ),
@@ -77,10 +83,10 @@ class _DailyEarningsCardWidgetState extends State<DailyEarningsCardWidget> {
                   onTap: () {
                     widget.onTap();
                   },
-                  child: const Text(
+                  child: Text(
                     'ver histórico',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: widget.tamanhoFonte! - 8,
                       color: Colors.white,
                     ),
                   ),

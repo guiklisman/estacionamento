@@ -1,6 +1,6 @@
-import '../../shared/models/dados_model.dart';
-import '../../shared/models/historico_diario_model.dart';
-import '../../shared/models/vaga_model.dart';
+import '../models/dados_model.dart';
+import '../models/historico_diario_model.dart';
+import '../models/vaga_model.dart';
 import '../repository/repository.dart';
 
 class Controller {
@@ -11,11 +11,11 @@ class Controller {
   List<VagaModel> vagasOcupadas = [];
   List<VagaModel> vagasLivres = [];
 
-  Future<List<VagaModel>> getVeiculos() async {
+  Future<List<VagaModel>> getVagas() async {
     try {
       await Future.delayed(const Duration(seconds: 1));
 
-      return await _repository.getListVeiculo();
+      return await _repository.getListVagas();
     } catch (e) {
       rethrow;
     }
@@ -41,7 +41,7 @@ class Controller {
     }
   }
 
-  Future<void> entrarVeiculo(String nomeVaga, String placaVeiculo) async {
+  Future<void> postEntrarVeiculo(String nomeVaga, String placaVeiculo) async {
     try {
       await Future.delayed(const Duration(seconds: 1));
 
@@ -51,7 +51,7 @@ class Controller {
     }
   }
 
-  Future<void> sairVeiculo(String nomeVaga, double valorTotal) async {
+  Future<void> postSairVeiculo(String nomeVaga, double valorTotal) async {
     try {
       await Future.delayed(const Duration(seconds: 1));
 
@@ -67,7 +67,7 @@ class Controller {
 
       results = await Future.wait([
         getDadosDiario(),
-        getVeiculos(),
+        getVagas(),
       ]);
       separarVagas(results[1]);
 
@@ -94,5 +94,25 @@ class Controller {
         vagasLivres.add(vaga);
       }
     }
+  }
+
+  String calcularTempoNoEstabelecimento(DateTime horaEntrada) {
+    DateTime agora = DateTime.now();
+    Duration diferenca = agora.difference(horaEntrada);
+    int horas = diferenca.inHours;
+    int minutos = (diferenca.inMinutes % 60);
+
+    return '$horas horas e $minutos minutos';
+  }
+
+  double calcularValorTotal(DateTime horaEntrada) {
+    DateTime agora = DateTime.now();
+    Duration diferenca = agora.difference(horaEntrada);
+    int minutos = diferenca.inMinutes;
+    double valorPorHora = 10.00;
+    int horas = ((minutos + 59) / 60).floor();
+    double valorTotal = horas * valorPorHora;
+
+    return valorTotal;
   }
 }

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:estacionamento/app/models/historico_diario_model.dart';
+import 'package:estacionamento/app/models/vaga_model.dart';
 import 'package:estacionamento/app/repository/repository.dart';
 import 'package:estacionamento/shared/data/data.dart';
-import 'package:estacionamento/shared/models/historico_diario_model.dart';
-import 'package:estacionamento/shared/models/vaga_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -18,7 +18,7 @@ void main() {
     });
 
     test('getListVeiculo() deve retornar lista de veículos', () async {
-      final result = await repository.getListVeiculo();
+      final result = await repository.getListVagas();
 
       expect(result, isA<List<VagaModel>>());
     });
@@ -53,7 +53,7 @@ void main() {
 
       final result = await repository.sairVeiculo(nomeVaga, valorTotal);
 
-      expect(result, equals('Veículo adicionado com sucesso !'));
+      expect(result, equals('Veículo removido com sucesso !'));
       expect(data.getVagas[0].ocupada, isFalse);
       expect(data.getVagas[0].horaSaida, isNotNull);
       expect(data.getHistoricoDiario.totalGanhoHoje, equals(valorTotal));

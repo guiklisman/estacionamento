@@ -1,6 +1,6 @@
-import '../models/historico_diario_model.dart';
-import '../models/vaga_model.dart';
-import '../models/veiculo_model.dart';
+import '../../app/models/historico_diario_model.dart';
+import '../../app/models/vaga_model.dart';
+import '../../app/models/veiculo_model.dart';
 
 class Data {
   static final Data _data = Data();
